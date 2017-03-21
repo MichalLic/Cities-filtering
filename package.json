@@ -16,5 +16,8 @@
     "gulp-uglify": "^2.0.0"
   },
   "author": "ML",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
 }
