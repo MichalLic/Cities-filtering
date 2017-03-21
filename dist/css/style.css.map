@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"style.css","sourcesContent":[]}
+{"version":3,"sources":["core/_general.scss"],"names":[],"mappings":"AACA,I,CACI,mB,CAAA,oB,CAAA,mB,CAAA,Y,CACA,gB,CACA,2B,CAAA,4B,CAAA,6B,CAAA,yB,CAAA,qB,CACA,e,CAEJ,K,CACI,kB,CAAA,c,CAAA,U,CAAA,M","file":"style.css","sourcesContent":["//sticky footer\r\nbody {\r\n    display: flex;\r\n    min-height: 100vh;\r\n    flex-direction: column;\r\n    min-width: 320px;\r\n}\r\n.main {\r\n    flex: 1;\r\n}"]}
