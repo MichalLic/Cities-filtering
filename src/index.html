@@ -24,13 +24,13 @@
             <div class="column is-10 is-offset-1">
                 <div class="field">
                     <label class="label" for="filter">City / State</label>
-                    <input class="input" id="filter" type="text" placeholder="city / state"/>
+                    <input class="input filter-input" id="filter" type="text" placeholder="city / state"/>
                 </div>
             </div>
         </div>
         <div class="container columns is-mobile">
             <div class="column is-10 is-offset-1">
-
+                <div class="filter-block"></div>
             </div>
         </div>
     </div>
@@ -46,5 +46,12 @@
 
 <script type="text/javascript" src="js/vendor.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
+<script id="template" type="x-tmpl-mustache">
+ <div class="filter-content columns is-mobile">
+    <div class="column is-4">{{city}}</div>
+    <div class="column is-4">{{state}}</div>
+    <div class="column is-4">{{population}}</div>
+</div>
+</script>
 </body>
 </html>

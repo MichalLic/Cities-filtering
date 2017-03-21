@@ -2,7 +2,8 @@ var PATH = {
     scss: './src/scss/**/*.scss',
     js: './src/js/**/*.js',
     js_vendor: [
-        './node_modules/jquery/dist/jquery.min.js'
+        './node_modules/jquery/dist/jquery.min.js',
+        './node_modules/mustache/mustache.min.js'
     ],
     css_vendor: [
         './node_modules/bulma/css/bulma.css'
