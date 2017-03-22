@@ -1,11 +1,11 @@
 var Filter = {
     //variables
-
+    ARRAY_DATA: '',
+    SINGLE_DATA_OBJECTS: '',
 
     //init
     init: function () {
         Filter.getData();
-        Filter.key();
     },
 
 
@@ -15,44 +15,54 @@ var Filter = {
             url: 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json',
             method: 'GET',
             success: function (response) {
-                console.log(JSON.parse(response));
-                Filter.getJsonToArray(response);
-            },
+                Filter.ARRAY_DATA = Filter.getJsonToArray(response);
+                Filter.SINGLE_DATA_OBJECTS = Filter.getSingleDataObject();
+                Filter.filterData(response);
+                Filter.getSingleDataObject(response)
+           },
             error: function () {
                 console.log('Getting data error');
             }
         })
     },
 
-
-    key: function () {
-        $('.filter-input').keyup(function () {
-            console.log(this.value);
+    filterData: function () {
+        $('.filter-input').on('keyup', function () {
+            var inputVal = this.value;
+            Filter.ARRAY_DATA.filter(function (CityOrState){
+                if(Filter.checkContain(CityOrState.city, inputVal, CityOrState.state)){
+                    Filter.mustacheRender(CityOrState);
+                } 
+            });
         })
     },
 
-
-
-
-
-    getJsonToArray: function (data) {
-        var arrayData = JSON.parse(data);
-        Filter.getSimpleDataObject(arrayData);
+    checkContain: function (city, inputVal, state) {
+        return city.indexOf(inputVal) >= 0 || state.indexOf(inputVal) >=0;
     },
 
-    getSimpleDataObject: function (data) {
-        $.map(data, function (index) {
+    getJsonToArray: function (data) {
+        return JSON.parse(data);
+    },
+
+    mustacheRender: function (data) {
+        var template = $('#template').html();
+        Mustache.parse(template);
+        var rendered = Mustache.render(template, data);
+        $('.filter-block').append(rendered);
+    },
+
+
+
+
+
+
+    getSingleDataObject: function (data) {
+        $.map(Filter.ARRAY_DATA, function (index, item) {
             /*Filter.mustacheRender(index);*/
+            return index;
         });
     }
-
-    //mustacheRender: function (data) {
-    //    var template = $('#template').html();
-    //    Mustache.parse(template);
-    //    var rendered = Mustache.render(template, data);
-    //    $('.filter-block').append(rendered);
-    //}
-
 
 };
 $(document).ready(function () {
