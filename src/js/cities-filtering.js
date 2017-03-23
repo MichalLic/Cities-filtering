@@ -19,7 +19,7 @@ var Filter = {
                 Filter.SINGLE_DATA_OBJECTS = Filter.getSingleDataObject();
                 Filter.filterData(response);
                 Filter.getSingleDataObject(response)
-           },
+            },
             error: function () {
                 console.log('Getting data error');
             }
@@ -29,17 +29,22 @@ var Filter = {
     filterData: function () {
         $('.filter-input').on('keyup', function () {
             var inputVal = this.value;
-            Filter.ARRAY_DATA.filter(function (CityOrState){
-                if(Filter.checkContain(CityOrState.city, inputVal, CityOrState.state)){
+            var myRegex = new RegExp(inputVal,'gi');
+            $('.table-content').empty();
+            Filter.ARRAY_DATA.filter(function (CityOrState) {
+                if (Filter.checkContent(CityOrState.city, myRegex, CityOrState.state)) {
                     Filter.show($('.table'), 'show');
                     Filter.mustacheRender(CityOrState);
-                } 
+                }
             });
         })
     },
+    checkContent: function(city, myRegex, state) {
+        return city.match(myRegex) || state.match(myRegex)
 
+    },
     checkContain: function (city, inputVal, state) {
-        return city.indexOf(inputVal) >= 0 || state.indexOf(inputVal) >=0;
+        return city.indexOf(inputVal) >= 0 || state.indexOf(inputVal) >= 0;
     },
 
     getJsonToArray: function (data) {
@@ -53,19 +58,13 @@ var Filter = {
         $('.table-content').append(rendered);
     },
 
-    hide: function (element, addedClass){
+    hide: function (element, addedClass) {
         element.removeClass(addedClass)
     },
 
-    show: function(element, addedClasses){
-        console.log(element);
-        console.log(addedClasses);
+    show: function (element, addedClasses) {
         element.addClass(addedClasses)
     },
-
-
-
-
 
 
     getSingleDataObject: function (data) {
