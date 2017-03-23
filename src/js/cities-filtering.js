@@ -29,23 +29,37 @@ var Filter = {
     filterData: function () {
         $('.filter-input').on('keyup', function () {
             var inputVal = this.value;
-            var myRegex = new RegExp(inputVal,'gi');
+            var myRegex = new RegExp(inputVal, 'gi');
             $('.table-content').empty();
-            Filter.ARRAY_DATA.filter(function (CityOrState) {
-                if (Filter.checkContent(CityOrState.city, myRegex, CityOrState.state)) {
+            Filter.ARRAY_DATA.filter(function (cityOrState) {
+                if (Filter.checkContent(cityOrState.city, myRegex, cityOrState.state)) {
                     Filter.show($('.table'), 'show');
-                    Filter.mustacheRender(CityOrState);
+                    cityOrState['mycity'] = Filter.coloringSearching(cityOrState.city, inputVal);
+                    cityOrState['mystate'] = Filter.coloringSearching(cityOrState.state, inputVal);
+                    Filter.mustacheRender(cityOrState);
                 }
             });
         })
     },
-    checkContent: function(city, myRegex, state) {
+    checkContent: function (city, myRegex, state) {
         return city.match(myRegex) || state.match(myRegex)
 
     },
-    checkContain: function (city, inputVal, state) {
-        return city.indexOf(inputVal) >= 0 || state.indexOf(inputVal) >= 0;
+
+    coloringSearching: function (place, inputVal) {
+        return place.replace(inputVal, '<span class="selected">' + inputVal + '</span>');
+
     },
+
+    //formatValuePopulation: function () {
+    //    var populationValue = $('.population').value
+    //        console.log(populationValue);
+    //    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    //},
+
+    //checkContain: function (city, inputVal, state) {
+    //    return city.indexOf(inputVal) >= 0 || state.indexOf(inputVal) >= 0;
+    //},
 
     getJsonToArray: function (data) {
         return JSON.parse(data);
