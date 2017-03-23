@@ -16,9 +16,7 @@ var Filter = {
             method: 'GET',
             success: function (response) {
                 Filter.ARRAY_DATA = Filter.getJsonToArray(response);
-                Filter.SINGLE_DATA_OBJECTS = Filter.getSingleDataObject();
                 Filter.filterData(response);
-                Filter.getSingleDataObject(response)
             },
             error: function () {
                 console.log('Getting data error');
@@ -36,6 +34,7 @@ var Filter = {
                     Filter.show($('.table'), 'show');
                     cityOrState['mycity'] = Filter.coloringSearching(cityOrState.city, inputVal);
                     cityOrState['mystate'] = Filter.coloringSearching(cityOrState.state, inputVal);
+                    cityOrState.population = Filter.formatValueOfPopulation(cityOrState);
                     Filter.mustacheRender(cityOrState);
                 }
             });
@@ -51,15 +50,9 @@ var Filter = {
 
     },
 
-    //formatValuePopulation: function () {
-    //    var populationValue = $('.population').value
-    //        console.log(populationValue);
-    //    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    //},
-
-    //checkContain: function (city, inputVal, state) {
-    //    return city.indexOf(inputVal) >= 0 || state.indexOf(inputVal) >= 0;
-    //},
+    formatValueOfPopulation: function (data) {
+        return (data.population.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+    },
 
     getJsonToArray: function (data) {
         return JSON.parse(data);
@@ -79,14 +72,6 @@ var Filter = {
     show: function (element, addedClasses) {
         element.addClass(addedClasses)
     },
-
-
-    getSingleDataObject: function (data) {
-        $.map(Filter.ARRAY_DATA, function (index, item) {
-            /*Filter.mustacheRender(index);*/
-            return index;
-        });
-    }
 
 };
 $(document).ready(function () {
