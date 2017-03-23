@@ -31,6 +31,7 @@ var Filter = {
             var inputVal = this.value;
             Filter.ARRAY_DATA.filter(function (CityOrState){
                 if(Filter.checkContain(CityOrState.city, inputVal, CityOrState.state)){
+                    Filter.show($('.table'), 'show');
                     Filter.mustacheRender(CityOrState);
                 } 
             });
@@ -49,7 +50,17 @@ var Filter = {
         var template = $('#template').html();
         Mustache.parse(template);
         var rendered = Mustache.render(template, data);
-        $('.filter-block').append(rendered);
+        $('.table-content').append(rendered);
+    },
+
+    hide: function (element, addedClass){
+        element.removeClass(addedClass)
+    },
+
+    show: function(element, addedClasses){
+        console.log(element);
+        console.log(addedClasses);
+        element.addClass(addedClasses)
     },
 
 

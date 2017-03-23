@@ -30,7 +30,16 @@
         </div>
         <div class="container columns is-mobile">
             <div class="column is-10 is-offset-1">
-                <div class="filter-block"></div>
+                <table class="table is-bordered is-striped hide">
+                    <thead>
+                    <tr>
+                        <th><abbr title="city">City</abbr></th>
+                        <th><abbr title="state">State</abbr></th>
+                        <th><abbr title="population">Population</abbr></th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-content"></tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -47,11 +56,17 @@
 <script type="text/javascript" src="js/vendor.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 <script id="template" type="x-tmpl-mustache">
- <div class="filter-content columns is-mobile">
+<tr>
+<th>{{city}}</th>
+<th>{{state}}</th>
+<th>{{population}}</th>
+</tr>
+
+</script>
+</body>
+<!--<div class="filter-content columns is-mobile">
     <div class="column is-4">{{city}}</div>
     <div class="column is-4">{{state}}</div>
     <div class="column is-4">{{population}}</div>
-</div>
-</script>
-</body>
+</div>-->
 </html>
