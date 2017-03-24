@@ -32,8 +32,8 @@ var Filter = {
             Filter.ARRAY_DATA.filter(function (cityOrState) {
                 if (Filter.checkContent(cityOrState.city, myRegex, cityOrState.state)) {
                     Filter.show($('.table'), 'show');
-                    cityOrState['mycity'] = Filter.coloringSearching(cityOrState.city, inputVal);
-                    cityOrState['mystate'] = Filter.coloringSearching(cityOrState.state, inputVal);
+                    cityOrState['mycity'] = Filter.coloringSearching(cityOrState.city, inputVal, myRegex);
+                    cityOrState['mystate'] = Filter.coloringSearching(cityOrState.state, inputVal, myRegex);
                     cityOrState.population = Filter.formatValueOfPopulation(cityOrState);
                     Filter.mustacheRender(cityOrState);
                 }
@@ -45,9 +45,10 @@ var Filter = {
 
     },
 
-    coloringSearching: function (place, inputVal) {
-        return place.replace(inputVal, '<span class="selected">' + inputVal + '</span>');
-
+    coloringSearching: function (place, inputVal, myRegex) {
+        return place.replace(myRegex, function(match){
+            return '<span class="selected">' + match + '</span>';
+        });
     },
 
     formatValueOfPopulation: function (data) {
@@ -71,7 +72,7 @@ var Filter = {
 
     show: function (element, addedClasses) {
         element.addClass(addedClasses)
-    },
+    }
 
 };
 $(document).ready(function () {
