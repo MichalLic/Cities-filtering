@@ -27,17 +27,21 @@ var Filter = {
     filterData: function () {
         $('.filter-input').on('keyup', function () {
             var inputVal = this.value;
-            var myRegex = new RegExp(inputVal, 'gi');
             $('.table-content').empty();
-            Filter.ARRAY_DATA.filter(function (cityOrState) {
-                if (Filter.checkContent(cityOrState.city, myRegex, cityOrState.state)) {
-                    Filter.show($('.table'), 'show');
-                    cityOrState['mycity'] = Filter.coloringSearching(cityOrState.city, inputVal, myRegex);
-                    cityOrState['mystate'] = Filter.coloringSearching(cityOrState.state, inputVal, myRegex);
-                    cityOrState.population = Filter.formatValueOfPopulation(cityOrState);
-                    Filter.mustacheRender(cityOrState);
-                }
-            });
+            if (inputVal != '') {
+                var myRegex = new RegExp(inputVal, 'gi');
+                Filter.ARRAY_DATA.filter(function (cityOrState) {
+                    if (Filter.checkContent(cityOrState.city, myRegex, cityOrState.state)) {
+                        Filter.show($('.table'), 'show');
+                        cityOrState['mycity'] = Filter.coloringSearching(cityOrState.city, inputVal, myRegex);
+                        cityOrState['mystate'] = Filter.coloringSearching(cityOrState.state, inputVal, myRegex);
+                        cityOrState.population = Filter.formatValueOfPopulation(cityOrState);
+                        Filter.mustacheRender(cityOrState);
+                    }
+                });
+            } else {
+                Filter.hide($('.table'), 'show');
+            }
         })
     },
     checkContent: function (city, myRegex, state) {
@@ -46,7 +50,7 @@ var Filter = {
     },
 
     coloringSearching: function (place, inputVal, myRegex) {
-        return place.replace(myRegex, function(match){
+        return place.replace(myRegex, function (match) {
             return '<span class="selected">' + match + '</span>';
         });
     },
