@@ -1,0 +1,21 @@
+//fixed
+.header{
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}
+
+.main{
+    margin-top: 132px;
+}
+
+tbody {
+    th {
+        font-weight: 400;
+    }
+}
+
+.selected {
+    background-color: #00d1b2;
+}

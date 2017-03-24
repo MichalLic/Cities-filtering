@@ -5,6 +5,19 @@ body {
     flex-direction: column;
     min-width: 320px;
 }
+
 .main {
     flex: 1;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: inline-table;
+}
+
+.text-right{
+    text-align: right!important;
 }
